@@ -1,166 +1,174 @@
-# Paper Radar / 论文雷达
+# Paper Radar
 
-A personal paper radar for systems, architecture, storage, and selected AI infrastructure research.
+Paper Radar is a personal research radar for computer systems, computer architecture, storage, and selected AI infrastructure topics.
 
-一个面向 **系统、计算机架构、存储，以及少量高相关 AI Infra** 的私人论文雷达项目。
+Paper Radar 是一个面向 **计算机系统、计算机架构、存储**，并对**高相关 AI Infra** 做有限覆盖的个人论文雷达。
 
 ---
 
-## English
+## Overview | 项目概览
 
-### What it is
+Paper Radar focuses on a practical research workflow:
 
-Paper Radar is a personalized research scouting and reading assistant.
-It combines:
+- discover recent papers
+- keep a stable canonical reading pool
+- personalize ranking from an existing Zotero library
+- separate papers into actionable tiers
+- preserve daily snapshots for later review
+- provide structured deep-reading pages for representative papers
 
-- daily/weekly recent-paper discovery
-- canonical paper whitelist
-- Zotero-based interest personalization
-- tiered recommendations (`Must Read`, `Worth Skimming`, `Skip For Now`)
-- visual dashboard
-- professor-style deep reading pages with methodology flowcharts
-- daily archive snapshots
+Paper Radar 关注的是一个更贴近真实科研使用的工作流：
 
-### Main features
+- 跟踪近期论文
+- 保留稳定的经典论文池
+- 从现有 Zotero 文献库提取兴趣偏好
+- 对论文做分级筛选
+- 保留每日快照，便于回看
+- 为代表性论文生成结构化精读页面
 
-- **Venue-oriented browsing**
-  - FAST-style
-  - HPCA-style
-  - OSDI / ATC / EuroSys-style
-  - DAC / ICCAD-style
-- **Personalized ranking** from Zotero library signals
-- **Canonical paper pool** to stabilize long-term research taste
-- **Deep-dive analysis pages** (example: WiscKey)
-- **SVG methodology flowchart** embedded in the analysis page
-- **Archive snapshots** so yesterday's recommendations are not lost
-- **macOS launchd auto-refresh** skeleton
+---
 
-### Project structure
+## Core Features | 核心功能
+
+### 1. Topic-aware paper discovery
+Papers are ranked with an explicit bias toward:
+
+- storage systems
+- key-value stores and LSM-tree related work
+- SSD / NVMe / file system topics
+- computer architecture and memory systems
+- systems papers in the OSDI / ATC / EuroSys flavor
+
+AI infrastructure papers are intentionally constrained unless they are clearly systems-oriented.
+
+### 2. Canonical paper pool
+A curated whitelist is maintained to stabilize the recommendation direction and avoid drifting too far toward short-term arXiv noise.
+
+### 3. Zotero-based personalization
+Local Zotero metadata is used to extract lightweight preference signals, which are then injected into the ranking pipeline as soft boosts.
+
+### 4. Tiered reading workflow
+Recent papers are grouped into:
+
+- **Must Read / 必看**
+- **Worth Skimming / 可扫**
+- **Skip For Now / 先别看**
+
+### 5. Deep reading pages
+Representative papers can be rendered as structured analysis pages with:
+
+- abstract translation
+- motivation analysis
+- methodology breakdown
+- comparison tables
+- experiment highlights
+- implementation notes
+- methodology flowcharts
+
+### 6. Daily archive snapshots
+Generated results are archived by date so that papers missed on one day remain accessible later.
+
+---
+
+## Interface | 界面结构
+
+The dashboard is organized around several entry points:
+
+- **Top Venues / 顶会**
+- **Must Read / 必看**
+- **Worth Skimming / 可扫**
+- **Canonical Papers / 经典白名单**
+- **Deep Reading Sample / 精读样板**
+- **Archive / 历史归档**
+
+Venue-style filters currently include:
+
+- FAST-style
+- HPCA-style
+- OSDI / ATC / EuroSys-style
+- DAC / ICCAD-style
+
+---
+
+## Repository Layout | 仓库结构
 
 ```text
-assets/       UI templates
-output/       generated dashboard, analysis pages, snapshots
-references/   profiles, whitelist papers, summary templates
-scripts/      ranking, rendering, Zotero integration, archiving, automation
+assets/       dashboard templates
+output/       generated pages, snapshots, and analysis outputs
+references/   profiles, canonical paper lists, summary protocols
+scripts/      ranking, rendering, Zotero integration, automation
 ```
 
-### Local usage
+---
+
+## Local Usage | 本地使用
+
+Build the site:
 
 ```bash
 python3 scripts/build_site.py
-cd output && python3 -m http.server 8765
 ```
 
-Open:
+Serve the generated output locally:
+
+```bash
+cd output
+python3 -m http.server 8765
+```
+
+Open in browser:
 
 - Dashboard: `http://localhost:8765`
 - Deep reading sample: `http://localhost:8765/wisckey-analysis.html`
 - Archive hub: `http://localhost:8765/archive/index.html`
 
-### Auto refresh
+---
 
-Install the macOS daily job:
+## Automation | 自动化
+
+A macOS launchd job can be installed for daily refresh:
 
 ```bash
 bash scripts/install_daily_launchd.sh
 ```
 
-Default schedule: **08:30 every day**.
+Default schedule:
 
-### GitHub sync
+- **08:30 every day**
 
-A helper script is included:
+---
+
+## GitHub Synchronization | GitHub 同步
+
+A helper script is included for routine synchronization:
 
 ```bash
 bash scripts/sync_github.sh
 ```
 
-It will:
-- build the site
-- commit changes
-- push to the configured GitHub repository
+This script will:
+
+1. rebuild the site
+2. stage changes
+3. create a commit if needed
+4. push to the configured remote repository
 
 ---
 
-## 中文
+## Current Status | 当前状态
 
-### 这是什么
+This repository is currently optimized for:
 
-Paper Radar 是一个偏研究工作流的私人论文雷达。
-它把这些东西揉在一起：
+- macOS
+- local Zotero-based workflow
+- systems / architecture / storage oriented reading
 
-- 每日 / 每周新论文发现
-- 顶会 / 经典白名单池
-- 基于 Zotero 的个性化兴趣建模
-- 分级推荐（必看 / 可扫 / 先别看）
-- 可视化 dashboard
-- 教授视角的精读页与方法流程图
-- 每日历史归档
+The project is intentionally opinionated: it prefers research usefulness and stable reading direction over generic paper aggregation.
 
-### 核心功能
+本项目当前主要面向：
 
-- **按顶会风格浏览**
-  - FAST-style
-  - HPCA-style
-  - OSDI / ATC / EuroSys-style
-  - DAC / ICCAD-style
-- **基于 Zotero 的兴趣加权排序**
-- **经典论文白名单池**，防止推荐被短期热点带偏
-- **精读页面**（当前样板：WiscKey）
-- **SVG 方法流程图** 直接嵌入页面
-- **历史归档**，防止今天没看明天就没了
-- **macOS launchd 自动更新骨架**
+- macOS 环境
+- 本地 Zotero 工作流
+- 以系统 / 架构 / 存储为核心的论文跟踪需求
 
-### 项目结构
-
-```text
-assets/       页面模板
-output/       生成后的首页、精读页、归档
-references/   用户画像、白名单论文、总结模板
-scripts/      排序、渲染、Zotero 集成、归档、自动化脚本
-```
-
-### 本地运行
-
-```bash
-python3 scripts/build_site.py
-cd output && python3 -m http.server 8765
-```
-
-打开：
-
-- 主界面：`http://localhost:8765`
-- 精读样板：`http://localhost:8765/wisckey-analysis.html`
-- 归档中心：`http://localhost:8765/archive/index.html`
-
-### 自动更新
-
-安装 macOS 的每日任务：
-
-```bash
-bash scripts/install_daily_launchd.sh
-```
-
-默认每天 **08:30** 自动构建。
-
-### GitHub 同步
-
-附带了一键同步脚本：
-
-```bash
-bash scripts/sync_github.sh
-```
-
-它会：
-- 重新构建站点
-- 提交改动
-- 推送到配置好的 GitHub 仓库
-
----
-
-## Notes / 说明
-
-- This repo currently focuses on macOS + Zotero local workflow.
-- 目前主要面向 macOS + 本地 Zotero 使用场景。
-- The recommendation logic is intentionally opinionated toward storage/systems/architecture.
-- 推荐逻辑会明显偏向存储 / 系统 / 架构，而不是泛 AI 热门论文。
+它不是一个泛化论文聚合器，而是一个更强调研究方向稳定性与阅读效率的个人雷达。 
