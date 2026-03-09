@@ -1,0 +1,730 @@
+{
+  "meta": {
+    "days": 7,
+    "fetched": 120,
+    "matched": 30,
+    "tag_counts": {
+      "FAST-style": 14,
+      "HPCA-style": 9,
+      "Systems": 1,
+      "OSDI/ATC/EuroSys-style": 11,
+      "DAC/ICCAD-style": 2,
+      "AI Infra": 8,
+      "General Systems": 1
+    },
+    "tier_counts": {
+      "必看": 2,
+      "可扫": 7,
+      "先别看": 3
+    }
+  },
+  "featured_analysis": {
+    "title": "WiscKey 精读样板",
+    "path": "./wisckey-analysis.html"
+  },
+  "canonical": [
+    {
+      "id": "canon-1",
+      "title": "WiscKey: Separating Keys from Values in SSD-Conscious Storage",
+      "venue": "FAST",
+      "year": 2016,
+      "venue_tags": [
+        "FAST-style"
+      ],
+      "keywords": [
+        "storage",
+        "kv",
+        "lsm",
+        "wisckey",
+        "separating",
+        "keys",
+        "from",
+        "values",
+        "conscious"
+      ],
+      "tier": "白名单",
+      "score": 99,
+      "one_liner": "键值分离的代表作，LSM/SSD 方向绕不过去。",
+      "why": "FAST 2016；storage, kv, lsm"
+    },
+    {
+      "id": "canon-2",
+      "title": "Monkey: Optimal Navigable Key-Value Store",
+      "venue": "SIGMOD",
+      "year": 2017,
+      "venue_tags": [
+        "FAST-style"
+      ],
+      "keywords": [
+        "storage",
+        "lsm",
+        "filters",
+        "monkey",
+        "optimal",
+        "navigable",
+        "value",
+        "store"
+      ],
+      "tier": "白名单",
+      "score": 98,
+      "one_liner": "LSM 读放大与布隆过滤器分配的经典工作。",
+      "why": "SIGMOD 2017；storage, lsm, filters"
+    },
+    {
+      "id": "canon-3",
+      "title": "PebblesDB: Building Key-Value Stores using Fragmented Log-Structured Merge Trees",
+      "venue": "SOSP",
+      "year": 2017,
+      "venue_tags": [
+        "FAST-style"
+      ],
+      "keywords": [
+        "storage",
+        "kv",
+        "lsm",
+        "pebblesdb",
+        "building",
+        "value",
+        "stores",
+        "using",
+        "fragmented",
+        "structured",
+        "merge",
+        "trees"
+      ],
+      "tier": "白名单",
+      "score": 97,
+      "one_liner": "LSM 结构改造的代表作，适合和 WiscKey 对照着看。",
+      "why": "SOSP 2017；storage, kv, lsm"
+    },
+    {
+      "id": "canon-4",
+      "title": "Titan: A High-Performance Remote-Swap System",
+      "venue": "FAST",
+      "year": 2020,
+      "venue_tags": [
+        "FAST-style",
+        "HPCA-style",
+        "OSDI/ATC/EuroSys-style"
+      ],
+      "keywords": [
+        "storage",
+        "memory",
+        "systems",
+        "titan",
+        "high",
+        "performance",
+        "remote",
+        "swap",
+        "system"
+      ],
+      "tier": "白名单",
+      "score": 96,
+      "one_liner": "FAST 味很正，系统与存储交叉。",
+      "why": "FAST 2020；storage, memory, systems"
+    },
+    {
+      "id": "canon-5",
+      "title": "Design Tradeoffs for SSD Performance",
+      "venue": "USENIX ATC",
+      "year": 2008,
+      "venue_tags": [
+        "FAST-style"
+      ],
+      "keywords": [
+        "storage",
+        "ssd",
+        "design",
+        "tradeoffs",
+        "performance"
+      ],
+      "tier": "白名单",
+      "score": 95,
+      "one_liner": "SSD 设计空间的老经典。",
+      "why": "USENIX ATC 2008；storage, ssd"
+    },
+    {
+      "id": "canon-6",
+      "title": "Learned Cache Replacement for Datacenter Storage Systems",
+      "venue": "OSDI",
+      "year": 2020,
+      "venue_tags": [
+        "FAST-style",
+        "OSDI/ATC/EuroSys-style"
+      ],
+      "keywords": [
+        "storage",
+        "systems",
+        "cache",
+        "learned",
+        "replacement",
+        "datacenter"
+      ],
+      "tier": "白名单",
+      "score": 94,
+      "one_liner": "系统味较强，数据中心存储方向。",
+      "why": "OSDI 2020；storage, systems, cache"
+    },
+    {
+      "id": "canon-7",
+      "title": "The Tail at Scale",
+      "venue": "CACM",
+      "year": 2013,
+      "venue_tags": [
+        "OSDI/ATC/EuroSys-style"
+      ],
+      "keywords": [
+        "systems",
+        "datacenter",
+        "latency",
+        "tail",
+        "scale"
+      ],
+      "tier": "白名单",
+      "score": 93,
+      "one_liner": "系统性能分析与延迟思维的必读经典。",
+      "why": "CACM 2013；systems, datacenter, latency"
+    },
+    {
+      "id": "canon-8",
+      "title": "A Case for Tiny Tasks in Compute Clusters",
+      "venue": "HotOS",
+      "year": 2013,
+      "venue_tags": [
+        "OSDI/ATC/EuroSys-style"
+      ],
+      "keywords": [
+        "systems",
+        "datacenter",
+        "case",
+        "tiny",
+        "tasks",
+        "compute",
+        "clusters"
+      ],
+      "tier": "白名单",
+      "score": 92,
+      "one_liner": "系统基础设施调度思路的经典小文。",
+      "why": "HotOS 2013；systems, datacenter"
+    },
+    {
+      "id": "canon-9",
+      "title": "Optimizing Datacenter Performance via CXL-Aware Memory Tiering",
+      "venue": "HPCA",
+      "year": 2024,
+      "venue_tags": [
+        "HPCA-style"
+      ],
+      "keywords": [
+        "architecture",
+        "memory",
+        "cxl",
+        "optimizing",
+        "datacenter",
+        "performance",
+        "aware",
+        "tiering"
+      ],
+      "tier": "白名单",
+      "score": 91,
+      "one_liner": "偏你感兴趣的内存/架构/CXL 路线。",
+      "why": "HPCA 2024；architecture, memory, cxl"
+    },
+    {
+      "id": "canon-10",
+      "title": "BetrFS: A Right-Optimized Write-Optimized File System",
+      "venue": "FAST",
+      "year": 2015,
+      "venue_tags": [
+        "FAST-style"
+      ],
+      "keywords": [
+        "storage",
+        "filesystem",
+        "betrfs",
+        "right",
+        "optimized",
+        "write",
+        "file",
+        "system"
+      ],
+      "tier": "白名单",
+      "score": 90,
+      "one_liner": "写优化文件系统的代表性工作。",
+      "why": "FAST 2015；storage, filesystem"
+    },
+    {
+      "id": "canon-11",
+      "title": "SILK: Preventing Latency Spikes in Log-Structured Merge Key-Value Stores",
+      "venue": "FAST",
+      "year": 2019,
+      "venue_tags": [
+        "FAST-style"
+      ],
+      "keywords": [
+        "storage",
+        "kv",
+        "lsm",
+        "silk",
+        "preventing",
+        "latency",
+        "spikes",
+        "structured",
+        "merge",
+        "value",
+        "stores"
+      ],
+      "tier": "白名单",
+      "score": 89,
+      "one_liner": "LSM 延迟毛刺问题，非常贴近工程痛点。",
+      "why": "FAST 2019；storage, kv, lsm"
+    },
+    {
+      "id": "canon-12",
+      "title": "LOCATOR: A Key-Value Store for Hybrid-Cloud Workloads",
+      "venue": "FAST",
+      "year": 2023,
+      "venue_tags": [
+        "FAST-style",
+        "OSDI/ATC/EuroSys-style"
+      ],
+      "keywords": [
+        "storage",
+        "systems",
+        "kv",
+        "locator",
+        "value",
+        "store",
+        "hybrid",
+        "cloud",
+        "workloads"
+      ],
+      "tier": "白名单",
+      "score": 88,
+      "one_liner": "更现代的存储系统视角。",
+      "why": "FAST 2023；storage, systems, kv"
+    },
+    {
+      "id": "canon-13",
+      "title": "Tpp: Transparent Page Placement for CXL-Enabled Tiered-Memory",
+      "venue": "HPCA",
+      "year": 2024,
+      "venue_tags": [
+        "HPCA-style"
+      ],
+      "keywords": [
+        "architecture",
+        "memory",
+        "cxl",
+        "transparent",
+        "page",
+        "placement",
+        "enabled",
+        "tiered"
+      ],
+      "tier": "白名单",
+      "score": 87,
+      "one_liner": "CXL 分层内存方向，挺对你胃口。",
+      "why": "HPCA 2024；architecture, memory, cxl"
+    },
+    {
+      "id": "canon-14",
+      "title": "RowClone: Fast and Energy-Efficient In-DRAM Bulk Data Copy and Initialization",
+      "venue": "MICRO",
+      "year": 2013,
+      "venue_tags": [
+        "HPCA-style"
+      ],
+      "keywords": [
+        "architecture",
+        "memory",
+        "rowclone",
+        "fast",
+        "energy",
+        "efficient",
+        "dram",
+        "bulk",
+        "data",
+        "copy",
+        "initialization"
+      ],
+      "tier": "白名单",
+      "score": 86,
+      "one_liner": "内存系统经典，适合和现代 memory tiering 一起看。",
+      "why": "MICRO 2013；architecture, memory"
+    },
+    {
+      "id": "canon-15",
+      "title": "SoftMC: A Flexible and Practical Open-Source Infrastructure for Enabling Experimental DRAM Studies",
+      "venue": "HPCA",
+      "year": 2017,
+      "venue_tags": [
+        "HPCA-style"
+      ],
+      "keywords": [
+        "architecture",
+        "memory",
+        "softmc",
+        "flexible",
+        "practical",
+        "open",
+        "source",
+        "infrastructure",
+        "enabling",
+        "experimental",
+        "dram",
+        "studies"
+      ],
+      "tier": "白名单",
+      "score": 85,
+      "one_liner": "偏架构实验基础设施，味道很正。",
+      "why": "HPCA 2017；architecture, memory"
+    }
+  ],
+  "curated": [
+    {
+      "source": "curated",
+      "score": 35,
+      "tier": "经典",
+      "title": "WiscKey: Separating Keys from Values in SSD-Conscious Storage",
+      "authors": [],
+      "link": "",
+      "why": "FAST-style；来自 Zotero 现有论文池",
+      "venue_tags": [
+        "FAST-style"
+      ],
+      "one_liner": "这类更像你的长期主线，适合精读和做研究借鉴。",
+      "summary": "We present WiscKey, a persistent LSM-tree-based key-value store with a performance-oriented data layout that separates keys from values to minimize I/O ampliﬁcation. The design of WiscKey is highly SSD optimized, leveraging both the sequential and random performance characteristics of the device. We demonstrate the advantages of WiscKey with both microbenchmarks and YCSB workloads. Microbenchmark results show that WiscKey is 2.5×–111× faster than LevelDB for loading a database and 1.6×–14× faster for random lookups. WiscKey is faster than both LevelDB and RocksDB in all six YCSB workloads.",
+      "publicationTitle": "ACM Transactions on Storage",
+      "date": "2017-02-28 2017-02-28",
+      "itemID": 16
+    },
+    {
+      "source": "curated",
+      "score": 31,
+      "tier": "经典",
+      "title": "HotRAP: Hot Record Retention and Promotion for LSM-trees with Tiered Storage",
+      "authors": [],
+      "link": "",
+      "why": "FAST-style；HPCA-style；来自 Zotero 现有论文池",
+      "venue_tags": [
+        "FAST-style",
+        "HPCA-style"
+      ],
+      "one_liner": "这类更像你的长期主线，适合精读和做研究借鉴。",
+      "summary": "Tiered storage architectures are promising to improve cost efficiency by combining small and fast storage with slower but cheaper mediums. However, existing designs of LogStructured Merge-trees (LSM-trees) on tiered storage cannot simultaneously support efficient read and write accesses. Keeping the upper and lower LSM-tree levels in the fast and slow storage respectively (i.e., tiering) allows efficient writes to the fast disks, but read-hot data may be stuck in the slow disks. Putting all the levels in the slow storage and using the fast disks as a cache (i.e., caching) can handle frequently read data efficiently, but LSM-tree compactions now need to happen in the slow disks.",
+      "publicationTitle": null,
+      "date": null,
+      "itemID": 14
+    },
+    {
+      "source": "curated",
+      "score": 30,
+      "tier": "经典",
+      "title": "SimpleSSD: Modeling Solid State Drives for Holistic System Simulation",
+      "authors": [],
+      "link": "",
+      "why": "FAST-style；HPCA-style；Systems；来自 Zotero 现有论文池",
+      "venue_tags": [
+        "FAST-style",
+        "HPCA-style",
+        "Systems"
+      ],
+      "one_liner": "这类更像你的长期主线，适合精读和做研究借鉴。",
+      "summary": "Existing solid state drive (SSD) simulators unfortunately lack hardware and/or software architecture models. Consequently, they are far from capturing the critical features of contemporary SSD devices. More importantly, while the performance of modern systems that adopt SSDs can vary based on their numerous internal design parameters and storage-level conﬁgurations, a full system simulation with traditional SSD models often requires unreasonably long runtimes and excessive computational resources. In this work, we propose SimpleSSD, a high-ﬁdelity simulator that models all detailed characteristics of hardware and software, while simplifying the nondescript features of storage internals. In contrast to existing SSD simulators, SimpleSSD can easily be integrated into publicly-available full system simulators. In addition, it can accommodate a complete storage stack and evaluate the performance of SSDs along with diverse memory technologies and microarchitectures. Thus, it facilitates simulations that explore the full design space at different levels of system abstraction.",
+      "publicationTitle": "IEEE Computer Architecture Letters",
+      "date": "2018-01-01 2018-1-1",
+      "itemID": 2
+    }
+  ],
+  "items": [
+    {
+      "source": "recent",
+      "score": 50,
+      "tier": "必看",
+      "title": "MoEless: Efficient MoE LLM Serving via Serverless Computing",
+      "authors": [
+        "Hanfei Yu",
+        "Bei Ouyang",
+        "Shwai He",
+        "Ang Li",
+        "Hao Wang"
+      ],
+      "link": "https://arxiv.org/abs/2603.06350v1",
+      "why": "+5 latency；+8 serving；+7 inference；+10 llm serving；+6 moe；+3 recent；canon:Titan: A High-Performance Remote-Swap System / The Tail at Scale / BetrFS: A Right-Optimized Write-Optimized File System",
+      "venue_tags": [
+        "OSDI/ATC/EuroSys-style",
+        "DAC/ICCAD-style",
+        "AI Infra"
+      ],
+      "one_liner": "算是 AI infra 里比较像系统活的，能看。",
+      "summary": "Large Language Models (LLMs) have become a cornerstone of AI, driving progress across diverse domains such as content creation, search and recommendation systems, and AI-assisted workflows. To alleviate extreme training costs and advancing model scales, Mixture-of-Experts (MoE) has become a popular backbone for modern LLMs, which are commonly served in distributed deployment using expert parallelism (EP). However, MoE's sparse activation mechanism leads to severe expert load imbalance, where a few experts become overloaded while others remain idle, resulting in expert stragglers that inflate inference latency and serving cost. Existing expert load balancing solutions assume static resource configurations on serverful infrastructures, limiting expert scalability and elasticity, and resulting in either costly real-time expert swapping or degraded generation quality. We present MoEless, the first serverless MoE serving framework that mitigates expert load imbalance and accelerates inference via serverless experts. MoEless employs lightweight, layer-aware predictors to accurately estimate incoming expert load distributions and proactively identify stragglers. We design optimized expert scaling and placement strategies to maximize function locality, improve GPU utilization, and balance loads across experts and GPUs. MoEless is prototyped on top of Megatron-LM and deployed on an eight-GPU testbed. Experiments with open-source MoE models and real-world workloads show that MoEless reduces inference latency by 43% and inference cost by 84% compared to state-of-the-art solutions.",
+      "matched_canonical": [
+        "Titan: A High-Performance Remote-Swap System",
+        "The Tail at Scale",
+        "BetrFS: A Right-Optimized Write-Optimized File System"
+      ]
+    },
+    {
+      "source": "recent",
+      "score": 38,
+      "tier": "必看",
+      "title": "Tiny, Hardware-Independent, Compression-based Classification",
+      "authors": [
+        "Charles Meyers",
+        "Aaron MacSween",
+        "Erik Elmroth",
+        "Tommy Löfstedt"
+      ],
+      "link": "https://arxiv.org/abs/2603.06359v1",
+      "why": "+8 storage；+4 zotero:storage；+3 recent；canon:PebblesDB: Building Key-Value Stores using Fragmented Log-Structured Merge Trees / Titan: A High-Performance Remote-Swap System / A Case for Tiny Tasks in Compute Clusters",
+      "venue_tags": [
+        "FAST-style",
+        "OSDI/ATC/EuroSys-style",
+        "AI Infra"
+      ],
+      "one_liner": "存储味比较正，先看 bottleneck 有没有抓对。",
+      "summary": "The recent developments in machine learning have highlighted a conflict between online platforms and their users in terms of privacy. The importance of user privacy and the struggle for power over user data has been intensified as regulators and operators attempt to police online platforms. As users have become increasingly aware of privacy issues, client-side data storage, management, and analysis have become a favoured approach to large-scale centralised machine learning. However, state-of-the-art machine learning methods require vast amounts of labelled user data, making them unsuitable for models that reside client-side and only have access to a single user's data. State-of-the-art methods are also computationally expensive, which degrades the user experience on compute-limited hardware and also reduces battery life. A recent alternative approach has proven remarkably successful in classification tasks across a wide variety of data -- using a compression-based distance measure (called normalised compression distance) to measure the distance between generic objects in classical distance-based machine learning methods. In this work, we demonstrate that the normalised compression distance is actually not a metric; develop it for the wider context of kernel methods to allow modelling of complex data; and present techniques to improve the training time of models that use this distance measure. We demonstrate that the normalised compression distance works as well as and sometimes better than other metrics and kernels -- while requiring only marginally more computational costs and in spite of the lack of formal metric properties. The end results is a simple model with remarkable accuracy even when trained on a very small number of samples allowing for models that are small and effective enough to run entirely on a client device using only user-supplied data.",
+      "matched_canonical": [
+        "PebblesDB: Building Key-Value Stores using Fragmented Log-Structured Merge Trees",
+        "Titan: A High-Performance Remote-Swap System",
+        "A Case for Tiny Tasks in Compute Clusters"
+      ]
+    },
+    {
+      "source": "recent",
+      "score": 24,
+      "tier": "可扫",
+      "title": "Semantics-Aware Caching for Concept Learning",
+      "authors": [
+        "Louis Mozart Kamdem Teyou",
+        "Caglar Demir",
+        "Axel-Cyrille Ngonga Ngomo"
+      ],
+      "link": "https://arxiv.org/abs/2603.06506v1",
+      "why": "+5 cache；+3 recent",
+      "venue_tags": [
+        "HPCA-style",
+        "OSDI/ATC/EuroSys-style"
+      ],
+      "one_liner": "偏内存/架构味，值得看是不是有真货而不是只会画图。",
+      "summary": "Concept learning is a form of supervised machine learning that operates on knowledge bases in description logics. State-of-the-art concept learners often rely on an iterative search through a countably infinite concept space. In each iteration, they retrieve instances of candidate solutions to select the best concept for the next iteration. While simple learning problems might require a few dozen instance retrieval calls to find a fitting solution, complex learning problems might necessitate thousands of calls. We alleviate the resulting runtime challenge by presenting a semantics-aware caching approach. Our cache is essentially a subsumption-aware map that links concepts to a set of instances via crisp set operations. Our experiments on 5 datasets with 4 symbolic reasoners, a neuro-symbolic reasoner, and 5 popular pagination policies demonstrate that our cache can reduce the runtime of concept retrieval and concept learning by an order of magnitude while being effective for both symbolic and neuro-symbolic reasoners.",
+      "matched_canonical": []
+    },
+    {
+      "source": "recent",
+      "score": 24,
+      "tier": "可扫",
+      "title": "FlashPrefill: Instantaneous Pattern Discovery and Thresholding for Ultra-Fast Long-Context Prefilling",
+      "authors": [
+        "Qihang Fan",
+        "Huaibo Huang",
+        "Zhiying Wu",
+        "Juqiu Wang",
+        "Bingning Wang"
+      ],
+      "link": "https://arxiv.org/abs/2603.06199v1",
+      "why": "+5 latency；+3 recent；canon:The Tail at Scale / SoftMC: A Flexible and Practical Open-Source Infrastructure for Enabling Experimental DRAM Studies",
+      "venue_tags": [
+        "FAST-style"
+      ],
+      "one_liner": "先扫摘要和实验，别被标题党骗了。",
+      "summary": "Long-context modeling is a pivotal capability for Large Language Models, yet the quadratic complexity of attention remains a critical bottleneck, particularly during the compute-intensive prefilling phase. While various sparse attention mechanisms have been explored, they typically suffer from either significant search latency or insufficient sparsity. In this paper, we propose FlashPrefill, a framework enabling ultra-fast prefilling via instantaneous pattern discovery and thresholding. FlashPrefill leverages a fast block-searching technique to simultaneously locate dynamic vertical, slash, and block-sparse attention patterns. Crucially, it introduces a dynamic thresholding mechanism that bypasses the prohibitive overhead of sorting or accumulating attention scores while effectively eliminating the long-tail distribution to enhance sparsity. Extensive evaluations demonstrate that FlashPrefill achieves a substantial leap in efficiency, delivering an unprecedented 27.78x speedup on 256K sequences. Notably, unlike existing methods that incur efficiency degradation on shorter contexts, FlashPrefill maintains a 1.71x speedup even at a 4K context length, demonstrating its robustness and practical utility across varying sequence scales.",
+      "matched_canonical": [
+        "The Tail at Scale",
+        "SoftMC: A Flexible and Practical Open-Source Infrastructure for Enabling Experimental DRAM Studies"
+      ]
+    },
+    {
+      "source": "recent",
+      "score": 22,
+      "tier": "可扫",
+      "title": "Provuse: Platform-Side Function Fusion for Performance and Efficiency in FaaS Environments",
+      "authors": [
+        "Niklas Kowallik",
+        "Natalie Carl",
+        "Leon Pöllinger",
+        "Wei Wang",
+        "Sharan Santhahanam"
+      ],
+      "link": "https://arxiv.org/abs/2603.06170v1",
+      "why": "+5 latency；+3 recent；+2 cat:cs.DC；canon:Titan: A High-Performance Remote-Swap System / The Tail at Scale / A Case for Tiny Tasks in Compute Clusters",
+      "venue_tags": [
+        "OSDI/ATC/EuroSys-style"
+      ],
+      "one_liner": "先扫摘要和实验，别被标题党骗了。",
+      "summary": "Function-as-a-Service (FaaS) platforms provide scalable and cost-efficient execution but suffer from increased latency and resource overheads in complex applications comprising multiple functions, particularly due to double billing when functions call each other. This paper presents Provuse, a transparent, platform-side optimization that automatically performs function fusion at runtime for independently deployed functions, thereby eliminating redundant function instances. This approach reduces both cost and latency without requiring users to change any code. Provusetargets provider-managed FaaS platforms that retain control over function entry points and deployment artifacts, enabling transparent, runtime execution consolidation without developer intervention. We provide two implementations for this approach using the tinyFaaS platform as well as Kubernetes, demonstrating compatibility with container orchestration frameworks. An evaluation shows consistent improvements, achieving an average end-to-end latency reduction of 26.33% and a mean RAM usage reduction of 53.57%. These results indicate that automatic function fusion is an effective platform-side strategy for reducing latency and RAM consumption in composed FaaS applications, highlighting the potential of transparent infrastructure-level optimizations in serverless systems.",
+      "matched_canonical": [
+        "Titan: A High-Performance Remote-Swap System",
+        "The Tail at Scale",
+        "A Case for Tiny Tasks in Compute Clusters"
+      ]
+    },
+    {
+      "source": "recent",
+      "score": 18,
+      "tier": "可扫",
+      "title": "Efficient Vector Search in the Wild: One Model for Multi-K Queries",
+      "authors": [
+        "Yifan Peng",
+        "Jiafei Fan",
+        "Xingda Wei",
+        "Sijie Shen",
+        "Rong Chen"
+      ],
+      "link": "https://arxiv.org/abs/2603.06159v1",
+      "why": "+5 latency；+8 serving；+3 recent；canon:Monkey: Optimal Navigable Key-Value Store / Titan: A High-Performance Remote-Swap System / Learned Cache Replacement for Datacenter Storage Systems",
+      "venue_tags": [
+        "AI Infra"
+      ],
+      "one_liner": "AI infra 方向，但得警惕是不是只是模型套壳。",
+      "summary": "Learned top-K search is a promising approach for serving vector queries with both high accuracy and performance. However, current models trained for a specific K value fail to generalize to real-world multi-K queries: they suffer from accuracy degradation (for larger Ks) and performance loss (for smaller Ks). Training the model to generalize on different Ks requires orders of magnitude more preprocessing time and is not suitable for serving vector queries in the wild. We present OMEGA, a K-generalizable learned top-K search method that simultaneously achieves high accuracy, high performance, and low preprocessing cost for multi-K vector queries. The key idea is that a base model properly trained on K=1 with our trajectory-based features can be used to accurately predict larger Ks with a dynamic refinement procedure and smaller Ks with minimal performance loss. To make our refinements efficient, we further leverage the statistical properties of top-K searches to reduce excessive model invocations. Extensive evaluations on multiple public and production datasets show that, under the same preprocessing budgets, OMEGA achieves 6-33% lower average latency compared to state-of-the-art learned search methods, while all systems achieve the same recall target. With only 16-30% of the preprocessing time, OMEGA attains 1.01-1.28x of the optimal average latency of these baselines.",
+      "matched_canonical": [
+        "Monkey: Optimal Navigable Key-Value Store",
+        "Titan: A High-Performance Remote-Swap System",
+        "Learned Cache Replacement for Datacenter Storage Systems"
+      ]
+    },
+    {
+      "source": "recent",
+      "score": 16,
+      "tier": "可扫",
+      "title": "CLoPA: Continual Low Parameter Adaptation of Interactive Segmentation for Medical Image Annotation",
+      "authors": [
+        "Parhom Esmaeili",
+        "Chayanin Tangwiriyasakul",
+        "Eli Gibson",
+        "Sebastien Ourselin",
+        "M. Jorge Cardoso"
+      ],
+      "link": "https://arxiv.org/abs/2603.06426v1",
+      "why": "+5 cache；+7 inference；-8 medical image；+3 recent",
+      "venue_tags": [
+        "HPCA-style",
+        "AI Infra"
+      ],
+      "one_liner": "偏内存/架构味，值得看是不是有真货而不是只会画图。",
+      "summary": "Interactive segmentation enables clinicians to guide annotation, but existing zero-shot models like nnInteractive fail to consistently reach expert-level performance across diverse medical imaging tasks. Because annotation campaigns produce a growing stream of task-specific labelled data, online adaptation of the segmentation model is a natural complement to zero-shot inference. We propose CLoPA, a continual adaptation strategy that tunes a small fraction of nnInteractive's parameters on the annotation cache, triggered by lightweight episode scheduling. CLoPA requires no new parameters or changes to the inference pipeline, and operates entirely within the existing annotation workflow. Across eight Medical Segmentation Decathlon tasks spanning diverse anatomical targets and imaging characteristics, CLoPA rapidly elevates performance to expert-level, even for tasks where nnInteractive previously failed, with the majority of gains realised after a single training episode. We show that the benefits of tuning different parameter groups depends on task characteristics and data regimes. Also, that for targets with complex geometries (e.g., hepatic vessels), instance normalisation and low-level feature tuning saturates, suggesting a need for deeper feature-representation alignment in the most challenging scenarios.",
+      "matched_canonical": []
+    },
+    {
+      "source": "recent",
+      "score": 15,
+      "tier": "可扫",
+      "title": "Adapter-Augmented Bandits for Online Multi-Constrained Multi-Modal Inference Scheduling",
+      "authors": [
+        "Xianzhi Zhang",
+        "Yue Xu",
+        "Yinlin Zhu",
+        "Di Wu",
+        "Yipeng Zhou"
+      ],
+      "link": "https://arxiv.org/abs/2603.06403v1",
+      "why": "+7 inference；+3 recent；canon:Titan: A High-Performance Remote-Swap System / SoftMC: A Flexible and Practical Open-Source Infrastructure for Enabling Experimental DRAM Studies",
+      "venue_tags": [
+        "OSDI/ATC/EuroSys-style",
+        "AI Infra"
+      ],
+      "one_liner": "AI infra 方向，但得警惕是不是只是模型套壳。",
+      "summary": "Multi-modal large language model (MLLM) inference scheduling enables strong response quality under practical and heterogeneous budgets, beyond what a homogeneous single-backend setting can offer. Yet online MLLM task scheduling is nontrivial, as requests vary sharply in modality composition and latent reasoning difficulty, while execution backends incur distinct, time-varying costs due to system jitter and network variation. These coupled uncertainties pose two core challenges: deriving semantically faithful yet scheduling-relevant multi-modal task representations, and making low-overhead online decisions over irreversible multi-dimensional budgets. Accordingly, we propose \\emph{M-CMAB} (\\underline{M}ulti-modal \\underline{M}ulti-constraint \\underline{C}ontextual \\underline{M}ulti-\\underline{A}rmed \\underline{B}andit), a multi-adapter-enhanced MLLM inference scheduling framework with three components: (i) a CLS-attentive, frozen-backbone \\emph{Predictor} that extracts compact task representations and updates only lightweight adapters for action-specific estimation; (ii) a primal-dual \\emph{Constrainer} that maintains online Lagrange multipliers to enforce long-horizon constraints via per-round objectives; and (iii) a two-phase \\emph{Scheduler} that balances exploration and exploitation under irreversible budgets. We establish a regret guarantee under multi-dimensional knapsack constraints. On a composite multimodal benchmark with heterogeneous backends, \\emph{M-CMAB} consistently outperforms state-of-the-art baselines across budget regimes, achieving up to 14.18% higher reward and closely tracking an oracle-aided upper bound. Codes are available at https://anonymous.4open.science/r/M2CMAB/.",
+      "matched_canonical": [
+        "Titan: A High-Performance Remote-Swap System",
+        "SoftMC: A Flexible and Practical Open-Source Infrastructure for Enabling Experimental DRAM Studies"
+      ]
+    },
+    {
+      "source": "recent",
+      "score": 14,
+      "tier": "可扫",
+      "title": "EvoESAP: Non-Uniform Expert Pruning for Sparse MoE",
+      "authors": [
+        "Zongfang Liu",
+        "Shengkun Tang",
+        "Boyang Sun",
+        "Zhiqiang Shen",
+        "Xin Yuan"
+      ],
+      "link": "https://arxiv.org/abs/2603.06003v1",
+      "why": "+5 throughput；+6 moe；+3 recent；canon:Titan: A High-Performance Remote-Swap System / Optimizing Datacenter Performance via CXL-Aware Memory Tiering / SoftMC: A Flexible and Practical Open-Source Infrastructure for Enabling Experimental DRAM Studies",
+      "venue_tags": [
+        "AI Infra"
+      ],
+      "one_liner": "偏内存/架构味，值得看是不是有真货而不是只会画图。",
+      "summary": "Sparse Mixture-of-Experts (SMoE) language models achieve strong capability at low per-token compute, yet deployment remains memory- and throughput-bound because the full expert pool must be stored and served. Post-training expert pruning reduces this cost, but most methods focus on which experts to prune within each layer and default to a uniform layer-wise sparsity allocation, even though the allocation can strongly affect performance. We decouple pruning into within-layer expert ranking and across-layer budget allocation, and introduce \\textbf{E}xpected \\textbf{S}peculative \\textbf{A}cceptance \\textbf{P}roxy (\\textbf{ESAP}), a speculative-decoding-inspired, teacher-forced metric that measures how well a pruned model matches the full model. ESAP is bounded and stable, enabling cheap comparison of many candidates without costly autoregressive decoding. Building on ESAP, we propose EvoESAP, an evolutionary searching framework that optimizes a non-uniform layer-wise sparsity allocation under a fixed global budget while holding the within-layer pruning order fixed, making it a plug-and-play method with criteria such as Frequency, EAN, SEER, and REAP. Across 7B--30B SMoE LLMs at 25\\% and 50\\% sparsity, EvoESAP consistently discovers non-uniform allocations that improve open-ended generation (up to \\textbf{+19.6\\%} on MATH-500 at 50\\% sparsity) while preserving competitive multiple-choice accuracy compared with uniform pruning at the same sparsity.",
+      "matched_canonical": [
+        "Titan: A High-Performance Remote-Swap System",
+        "Optimizing Datacenter Performance via CXL-Aware Memory Tiering",
+        "SoftMC: A Flexible and Practical Open-Source Infrastructure for Enabling Experimental DRAM Studies"
+      ]
+    },
+    {
+      "source": "recent",
+      "score": 10,
+      "tier": "先别看",
+      "title": "Whisper-CD: Accurate Long-Form Speech Recognition using Multi-Negative Contrastive Decoding",
+      "authors": [
+        "Hoseong Ahn",
+        "Jeongyun Chae",
+        "Yoonji Park",
+        "Kyuhong Shim"
+      ],
+      "link": "https://arxiv.org/abs/2603.06193v1",
+      "why": "+5 throughput；+7 inference；+3 recent；canon:PebblesDB: Building Key-Value Stores using Fragmented Log-Structured Merge Trees / Titan: A High-Performance Remote-Swap System / Learned Cache Replacement for Datacenter Storage Systems",
+      "venue_tags": [
+        "DAC/ICCAD-style",
+        "AI Infra"
+      ],
+      "one_liner": "AI infra 方向，但得警惕是不是只是模型套壳。",
+      "summary": "Long-form speech recognition with large encoder-decoder models such as Whisper often exhibit hallucinations, repetition loops, and content omissions. These errors can accumulate and be further amplified when the previous segment's transcription is used as decoding context. We propose Whisper-CD, a training-free contrastive decoding framework that contrasts clean-audio logits against negative logits computed from three acoustically motivated perturbations: Gaussian noise injection, silence signal, and audio temporal shift. We aggregate these negatives via the log-sum-exp operator, building a unified multi-negative objective for token-by-token decoding. Across five English long-form benchmarks, Whisper-CD reduces WER by up to 24.3pp on CORAAL and shows 48% faster token generation throughput than beam search. Because Whisper-CD operates purely at inference time, it can be applied as a drop-in replacement to already-deployed Whisper systems without retraining.",
+      "matched_canonical": [
+        "PebblesDB: Building Key-Value Stores using Fragmented Log-Structured Merge Trees",
+        "Titan: A High-Performance Remote-Swap System",
+        "Learned Cache Replacement for Datacenter Storage Systems"
+      ]
+    },
+    {
+      "source": "recent",
+      "score": 10,
+      "tier": "先别看",
+      "title": "COLD-Steer: Steering Large Language Models via In-Context One-step Learning Dynamics",
+      "authors": [
+        "Kartik Sharma",
+        "Rakshit S. Trivedi"
+      ],
+      "link": "https://arxiv.org/abs/2603.06495v1",
+      "why": "+7 inference；+3 recent；canon:RowClone: Fast and Energy-Efficient In-DRAM Bulk Data Copy and Initialization",
+      "venue_tags": [
+        "OSDI/ATC/EuroSys-style",
+        "AI Infra"
+      ],
+      "one_liner": "AI infra 方向，但得警惕是不是只是模型套壳。",
+      "summary": "Activation steering methods enable inference-time control of large language model (LLM) behavior without retraining, but current approaches face a fundamental trade-off: sample-efficient methods suboptimally capture steering signals from labeled examples, while methods that better extract these signals require hundreds to thousands of examples. We introduce COLD-Steer, a training-free framework that steers LLM activations by approximating the representational changes that would result from gradient descent on in-context examples. Our key insight is that the effect of fine-tuning on a small set of examples can be efficiently approximated at inference time without actual parameter updates. We formalize this through two complementary approaches: (i) a unit kernel approximation method that updates the activations directly using gradients with respect to them, normalized across examples, and (ii) a finite-difference approximation requiring only two forward passes regardless of example count. Experiments across a variety of steering tasks and benchmarks demonstrate that COLD-Steer achieves upto 95% steering effectiveness while using 50 times fewer samples compared to the best baseline. COLD-Steer facilitates accommodating diverse perspectives without extensive demonstration data, which we validate through our experiments on pluralistic alignment tasks. Our framework opens new possibilities for adaptive, context-aware model control that can flexibly address varying loss-driven human preferences through principled approximation of learning dynamics rather than specialized training procedures.",
+      "matched_canonical": [
+        "RowClone: Fast and Energy-Efficient In-DRAM Bulk Data Copy and Initialization"
+      ]
+    },
+    {
+      "source": "recent",
+      "score": 9,
+      "tier": "先别看",
+      "title": "An Integrated Failure and Threat Mode and Effect Analysis (FTMEA) Framework with Quantified Cross-Domain Correlation Factors for Automotive Semiconductors",
+      "authors": [
+        "Antonino Armato",
+        "Marzana Khatun",
+        "Sebastian Fischer"
+      ],
+      "link": "https://arxiv.org/abs/2603.06299v1",
+      "why": "+3 recent；+2 cat:cs.AR；canon:WiscKey: Separating Keys from Values in SSD-Conscious Storage / PebblesDB: Building Key-Value Stores using Fragmented Log-Structured Merge Trees / Titan: A High-Performance Remote-Swap System",
+      "venue_tags": [
+        "General Systems"
+      ],
+      "one_liner": "先扫摘要和实验，别被标题党骗了。",
+      "summary": "The automotive industry faces increasing challenges in ensuring both functional safety (FuSa) and cybersecurity for complex semiconductor devices. Traditional Failure Mode and Effects Analysis (FMEA) primarily addresses safety-related failure modes, often overlooking synergistic vulnerabilities and shared consequences with cybersecurity threats. This paper introduces an Integrated Failure and Threat Mode and Effect Analysis (FTMEA) framework that systematically co-analyzes FuSa and cybersecurity. A cornerstone of this framework is the introduction of rigorously defined Cross-Domain Correlation Factors (CDCFs), which quantify the interdependencies and mutual influences between safety-related failures and cybersecurity threats. These factors are derived from a combination of structured expert knowledge, static structural analysis metrics (e.g., Controllability/Observability), and validated against empirical data from fault/attack injection campaigns. We propose a modified Risk Priority Number (RPN) calculation that systematically integrates these correlation factors, enabling a more accurate and transparent prioritization of risks that span both domains. A detailed case study involving an automotive ASIC configuration register proves the practical application of the FTMEA. We present explicit mapping tables, quantitative CDCF values, and a comparative analysis against a baseline FMEA/TARA (Threat Analysis and Risk Assessment), illustrating how the integrated approach uncovers previously masked cross-domain risks, improves mitigation strategy effectiveness, and provides a clear quantitative justification for the derived correlation values. This framework offers a unified, traceable, methodology for risk assessment in critical automotive systems, thereby overcoming the limitations of conventional analyses and promoting optimized, cross-disciplinary development.",
+      "matched_canonical": [
+        "WiscKey: Separating Keys from Values in SSD-Conscious Storage",
+        "PebblesDB: Building Key-Value Stores using Fragmented Log-Structured Merge Trees",
+        "Titan: A High-Performance Remote-Swap System"
+      ]
+    }
+  ]
+}

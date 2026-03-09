@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Paper Radar</title>
+<style>
+:root{--bg:#0b1020;--panel:#121a30;--soft:#1a2442;--text:#ecf2ff;--muted:#9fb0d1;--accent:#7c9cff;--good:#5bd6a1;--warn:#ffd166;--bad:#ff8c8c}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,sans-serif;background:radial-gradient(circle at top,#18254f 0,#0b1020 45%,#0b1020 100%);color:var(--text)}
+.wrap{max-width:1280px;margin:0 auto;padding:28px 20px 70px}.hero{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:22px}.title{font-size:34px;font-weight:800}.sub{color:var(--muted);margin-top:8px}
+.stats,.tabs,.subtabs,.datebar{display:flex;gap:10px;flex-wrap:wrap}.stat,.tab,.subtab,.datepill{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:10px 14px;border-radius:14px}.stat b{display:block;font-size:22px}.tab,.subtab,.datepill{cursor:pointer}.tab.active,.subtab.active,.datepill.active{background:rgba(124,156,255,.18);border-color:rgba(124,156,255,.35)}
+.grid{display:grid;grid-template-columns:1.4fr .6fr;gap:18px}.panel{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:18px}.card{background:var(--panel);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:14px;margin-bottom:12px}
+.score,.tier{display:inline-block;padding:4px 10px;border-radius:999px;font-weight:700;font-size:12px}.score{background:rgba(124,156,255,.14);color:#c8d6ff}.tier.must{background:rgba(91,214,161,.14);color:#9ff1ca}.tier.scan{background:rgba(255,209,102,.14);color:#ffe7a6}.tier.skip{background:rgba(255,140,140,.14);color:#ffc0c0}.tier.classic{background:rgba(160,120,255,.16);color:#d9c7ff}.tier.white{background:rgba(120,210,255,.16);color:#bfefff}
+.tag{display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(91,214,161,.12);color:#9ff1ca;font-size:12px;margin-right:6px;margin-top:6px}.muted{color:var(--muted)} a{color:#c8d6ff;text-decoration:none}.bar{height:10px;background:var(--soft);border-radius:999px;overflow:hidden}.bar>span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#9c7cff)} .cta{display:inline-block;margin-top:8px;padding:8px 12px;border-radius:12px;background:rgba(124,156,255,.15);border:1px solid rgba(124,156,255,.25)}
+@media (max-width: 920px){.grid{grid-template-columns:1fr}.hero{flex-direction:column;align-items:start}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div><div class="title">Paper Radar</div><div class="sub">产品化主界面 · 顶会 / 分领域 / 历史 / 精读</div></div>
+    <div class="stats" id="stats"></div>
+  </div>
+  <div class="datebar" id="datebar"></div>
+  <div class="tabs" id="tabs" style="margin-top:14px"></div>
+  <div class="subtabs" id="subtabs" style="margin:14px 0 18px"></div>
+  <div class="grid">
+    <section class="panel"><div id="featured"></div><div id="content"></div></section>
+    <section class="panel"><h2 style="margin-top:0">概览</h2><div class="stats" id="tiers"></div><div style="margin-top:16px" id="venues"></div><div style="margin-top:16px"><h3>历史归档</h3><div id="archive"></div><a class="cta" href="./archive/index.html" target="_blank">打开归档中心</a></div></section>
+  </div>
+</div>
+<script>
+let DATA=null, currentTab='top', currentSub='all', currentDate='today', ARCH=[];
+const topTabs=[['top','顶会'],['must','必看'],['sweep','可扫'],['canon','经典白名单'],['sample','精读样板'],['history','历史归档']];
+const venueSubs=['all','FAST-style','HPCA-style','OSDI/ATC/EuroSys-style','DAC/ICCAD-style'];
+function tierClass(t){if(t==='必看')return 'must'; if(t==='可扫')return 'scan'; if(t==='先别看')return 'skip'; if(t==='白名单')return 'white'; return 'classic'}
+function renderCard(p){return `<article class="card"><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px"><span class="score">${p.score||''}</span><span class="tier ${tierClass(p.tier||'经典')}">${p.tier||'经典'}</span></div><h3>${p.title}</h3><div class="muted">${(p.authors||[]).join(', ')}</div><div>${(p.venue_tags||[]).map(t=>`<span class="tag">${t}</span>`).join('')}</div><p>${p.one_liner||''}</p><p class="muted">${p.why||''}</p>${p.link?`<a href="${p.link}" target="_blank">打开论文</a>`:''}</article>`}
+function setTabs(){document.getElementById('tabs').innerHTML=topTabs.map(([k,v])=>`<div class="tab ${currentTab===k?'active':''}" onclick="switchTab('${k}')">${v}</div>`).join(''); document.getElementById('subtabs').innerHTML=((currentTab==='top'||currentTab==='canon')?venueSubs.map(v=>`<div class="subtab ${currentSub===v?'active':''}" onclick="switchSub('${v}')">${v==='all'?'全部':v}</div>`).join(''):''); document.getElementById('datebar').innerHTML=[['today','今天'],['yesterday','昨天'],['7d','最近7天']].map(([k,v])=>`<div class="datepill ${currentDate===k?'active':''}" onclick="switchDate('${k}')">${v}</div>`).join('');}
+function switchTab(t){currentTab=t; currentSub='all'; render()} function switchSub(s){currentSub=s; render()} function switchDate(d){currentDate=d; render()}
+function applySub(arr){return currentSub==='all'?arr:arr.filter(x=>(x.venue_tags||[]).includes(currentSub))}
+function render(){setTabs(); const c=document.getElementById('content'); const f=document.getElementById('featured'); f.innerHTML=''; let html='';
+ if(currentTab==='sample'){ const x=DATA.featured_analysis; f.innerHTML=`<div class="card"><h3>${x.title}</h3><div class="muted">教授级方法分析 + 真流程图 + 结构化页面。</div><a class="cta" href="${x.path}" target="_blank">打开精读页</a><a class="cta" href="./wisckey-flow.svg" target="_blank" style="margin-left:8px">打开流程图</a></div>`; }
+ else if(currentTab==='canon'){ html=applySub(DATA.canonical||[]).map(renderCard).join(''); }
+ else if(currentTab==='must'){ html=(DATA.items||[]).filter(x=>x.tier==='必看').map(renderCard).join(''); }
+ else if(currentTab==='sweep'){ html=(DATA.items||[]).filter(x=>x.tier==='可扫').map(renderCard).join(''); }
+ else if(currentTab==='history'){ html=`<div class="card"><h3>历史快照</h3><div class="muted">今天没看完，明天还能回头补。</div>${ARCH.map(d=>`<div style="margin-top:8px"><a href='./archive/${d}/index.html' target='_blank'>${d}</a></div>`).join('')}</div>`; }
+ else { let arr=applySub([...(DATA.canonical||[]), ...(DATA.items||[])]); html=arr.map(renderCard).join(''); }
+ c.innerHTML=html||'<div class="card muted">这栏暂时没内容。</div>'; }
+async function main(){ DATA=await (await fetch('./latest.json')).json(); const stats=[['Window',`${DATA.meta.days}d`],['Shown',DATA.items.length],['Canonical',(DATA.canonical||[]).length],['Curated',(DATA.curated||[]).length]]; document.getElementById('stats').innerHTML=stats.map(([k,v])=>`<div class="stat"><span class="muted">${k}</span><b>${v}</b></div>`).join(''); const tc=DATA.meta.tier_counts||{}; document.getElementById('tiers').innerHTML=['必看','可扫','先别看'].map(g=>`<div class="stat"><span class="muted">${g}</span><b>${tc[g]||0}</b></div>`).join(''); const tags=Object.entries(DATA.meta.tag_counts||{}).sort((a,b)=>b[1]-a[1]); const max=Math.max(...tags.map(x=>x[1]),1); document.getElementById('venues').innerHTML=tags.map(([k,v])=>`<div class="card"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><b>${k}</b><span class="muted">${v}</span></div><div class="bar"><span style="width:${(v/max)*100}%"></span></div></div>`).join(''); try{ ARCH=await (await fetch('./archive/index.json')).json(); document.getElementById('archive').innerHTML=ARCH.slice(0,5).map(d=>`<div class="card"><a href='./archive/${d}/index.html' target='_blank'>${d}</a></div>`).join(''); }catch(e){ document.getElementById('archive').innerHTML='<div class="card muted">归档会从今天开始积累。</div>'; ARCH=[]; } render(); }
+main();
+</script>
+</body>
+</html>

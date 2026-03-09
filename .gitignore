@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.DS_Store
+output/launchd.log
+output/launchd.err.log
+output/archive/
+*.sqlite
+*.db
+input/

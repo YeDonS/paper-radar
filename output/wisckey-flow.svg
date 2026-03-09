@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520">
+  <defs>
+    <style>
+      .bg{fill:#0f1530}.box{fill:#121a30;stroke:#7c9cff;stroke-width:2;rx:18;ry:18}.txt{fill:#ecf2ff;font-family:Arial,sans-serif;font-size:22px}.sub{fill:#9fb0d1;font-family:Arial,sans-serif;font-size:16px}.arrow{stroke:#7c9cff;stroke-width:3;fill:none;marker-end:url(#m)}
+    </style>
+    <marker id="m" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#7c9cff"/></marker>
+  </defs>
+  <rect class="bg" x="0" y="0" width="1200" height="520" rx="24"/>
+  <rect class="box" x="40" y="70" width="180" height="90"/><text class="txt" x="85" y="108">写入请求</text><text class="sub" x="72" y="134">key-value 到来</text>
+  <rect class="box" x="280" y="70" width="210" height="90"/><text class="txt" x="320" y="108">追加写 vLog</text><text class="sub" x="304" y="134">顺序写 value</text>
+  <rect class="box" x="550" y="70" width="230" height="90"/><text class="txt" x="590" y="108">生成 value pointer</text><text class="sub" x="620" y="134">offset / size</text>
+  <rect class="box" x="850" y="70" width="270" height="90"/><text class="txt" x="885" y="108">写入 LSM-tree</text><text class="sub" x="900" y="134">key + pointer 索引</text>
+  <rect class="box" x="190" y="300" width="240" height="90"/><text class="txt" x="245" y="338">点查 / 范围扫描</text><text class="sub" x="225" y="364">先查索引，再取 value</text>
+  <rect class="box" x="500" y="300" width="240" height="90"/><text class="txt" x="558" y="338">后台 GC</text><text class="sub" x="528" y="364">校验旧 value 是否有效</text>
+  <rect class="box" x="810" y="300" width="280" height="90"/><text class="txt" x="845" y="338">搬运有效 value</text><text class="sub" x="842" y="364">更新 tail/head 并释放旧空间</text>
+  <path class="arrow" d="M220 115 H280"/><path class="arrow" d="M490 115 H550"/><path class="arrow" d="M780 115 H850"/>
+  <path class="arrow" d="M985 160 V250 H310 V300"/>
+  <path class="arrow" d="M620 160 V300"/>
+  <path class="arrow" d="M740 345 H810"/>
+</svg>

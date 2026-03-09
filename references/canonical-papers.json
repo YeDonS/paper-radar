@@ -1,0 +1,17 @@
+[
+  {"title":"WiscKey: Separating Keys from Values in SSD-Conscious Storage","venue":"FAST","year":2016,"area":["storage","kv","lsm"],"why":"键值分离的代表作，LSM/SSD 方向绕不过去。"},
+  {"title":"Monkey: Optimal Navigable Key-Value Store","venue":"SIGMOD","year":2017,"area":["storage","lsm","filters"],"why":"LSM 读放大与布隆过滤器分配的经典工作。"},
+  {"title":"PebblesDB: Building Key-Value Stores using Fragmented Log-Structured Merge Trees","venue":"SOSP","year":2017,"area":["storage","kv","lsm"],"why":"LSM 结构改造的代表作，适合和 WiscKey 对照着看。"},
+  {"title":"Titan: A High-Performance Remote-Swap System","venue":"FAST","year":2020,"area":["storage","memory","systems"],"why":"FAST 味很正，系统与存储交叉。"},
+  {"title":"Design Tradeoffs for SSD Performance","venue":"USENIX ATC","year":2008,"area":["storage","ssd"],"why":"SSD 设计空间的老经典。"},
+  {"title":"Learned Cache Replacement for Datacenter Storage Systems","venue":"OSDI","year":2020,"area":["storage","systems","cache"],"why":"系统味较强，数据中心存储方向。"},
+  {"title":"The Tail at Scale","venue":"CACM","year":2013,"area":["systems","datacenter","latency"],"why":"系统性能分析与延迟思维的必读经典。"},
+  {"title":"A Case for Tiny Tasks in Compute Clusters","venue":"HotOS","year":2013,"area":["systems","datacenter"],"why":"系统基础设施调度思路的经典小文。"},
+  {"title":"Optimizing Datacenter Performance via CXL-Aware Memory Tiering","venue":"HPCA","year":2024,"area":["architecture","memory","cxl"],"why":"偏你感兴趣的内存/架构/CXL 路线。"},
+  {"title":"BetrFS: A Right-Optimized Write-Optimized File System","venue":"FAST","year":2015,"area":["storage","filesystem"],"why":"写优化文件系统的代表性工作。"},
+  {"title":"SILK: Preventing Latency Spikes in Log-Structured Merge Key-Value Stores","venue":"FAST","year":2019,"area":["storage","kv","lsm"],"why":"LSM 延迟毛刺问题，非常贴近工程痛点。"},
+  {"title":"LOCATOR: A Key-Value Store for Hybrid-Cloud Workloads","venue":"FAST","year":2023,"area":["storage","systems","kv"],"why":"更现代的存储系统视角。"},
+  {"title":"Tpp: Transparent Page Placement for CXL-Enabled Tiered-Memory","venue":"HPCA","year":2024,"area":["architecture","memory","cxl"],"why":"CXL 分层内存方向，挺对你胃口。"},
+  {"title":"RowClone: Fast and Energy-Efficient In-DRAM Bulk Data Copy and Initialization","venue":"MICRO","year":2013,"area":["architecture","memory"],"why":"内存系统经典，适合和现代 memory tiering 一起看。"},
+  {"title":"SoftMC: A Flexible and Practical Open-Source Infrastructure for Enabling Experimental DRAM Studies","venue":"HPCA","year":2017,"area":["architecture","memory"],"why":"偏架构实验基础设施，味道很正。"}
+]
