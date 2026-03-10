@@ -172,6 +172,14 @@ def render_analysis_html(item):
     intro_pts = pdfa.get('intro_points') or []
     method_pts = pdfa.get('method_points') or []
     exp_pts = pdfa.get('experiment_points') or []
+    focus_take_map = {
+        '通信 / RF / 边缘硬件': '这是通信/RF 边缘检测路线，重点看特征设计、可解释性和硬件落地。',
+        '存储 / KV / SSD': '这是存储/KV 路线，重点看 bottleneck 抓得准不准。',
+        '架构 / 内存系统': '这是架构/内存系统路线，重点看收益是不是来自真实硬件约束。',
+        '系统 / 集群 / 运行时': '这是系统/调度路线，重点看调度目标、约束和 baseline 公平性。',
+        'AI Infra / Serving': '这是 AI infra 路线，重点看是不是系统改进而不是模型套壳。',
+    }
+    display_take = pdfa.get('core_take') or focus_take_map.get(focus) or one
 
     motivation_a = intro_pts[0] if len(intro_pts) > 0 else (bullets[0] if len(bullets) > 0 else '作者想解决一个系统瓶颈问题。')
     motivation_b = intro_pts[1] if len(intro_pts) > 1 else (bullets[1] if len(bullets) > 1 else '现有方案在效率、成本或可扩展性上有明显烂点。')
@@ -196,7 +204,7 @@ def render_analysis_html(item):
         'N5: 输出结果与性能评估',
     ]
     flow_edges = ['N1 -> N2', 'N2 -> N3', 'N3 -> N4', 'N4 -> N5']
-    flow_plain = ['1. 输入数据或请求进入系统', '2. 做必要预处理与切分', '3. 执行论文提出的核心机制', '4. 通过系统层优化完成执行', '5. 输出结果并衡量延迟/吞吐/成本']
+    flow_plain = [f'1. {steps[0]}', f'2. {steps[1]}', f'3. {steps[2]}', f'4. {steps[3]}', f'5. {steps[4]}']
     mode = pdfa.get('mode', 'abstract')
     used_pdf = mode == 'pdf'
     mode_label = 'PDF 深读' if used_pdf else '摘要降级'
@@ -219,11 +227,11 @@ def render_analysis_html(item):
 <div class="step"><b>Step 4</b><br>{html_escape(steps[3])}</div>
 <div class="step"><b>Step 5</b><br>{html_escape(steps[4])}</div>
 <p class="muted">方法主线判断：{html_escape(focus)}。当前模式：{html_escape(mode_label)}；扫描页数：{html_escape(str(pdfa.get('pages_scanned','-')))}。</p>{excerpt_block}</section>
-<section id="compare"><h2>3. 与其他方法对比</h2><table class="table"><tr><th>维度</th><th>结论</th></tr><tr><td>主流方案</td><td>通常在系统瓶颈、资源利用率或扩展性上吃亏。</td></tr><tr><td>本文方法</td><td>更像是从系统路径或数据/执行布局上重新切刀。</td></tr><tr><td>创新点</td><td>{html_escape(one or '摘要里看得到有明确系统优化意图，但创新力度还得结合正文和实验细节判。')}</td></tr><tr><td>适用场景</td><td>{html_escape(focus)}</td></tr><tr><td>风险</td><td>如果摘要没写清 trade-off，那就要小心它把复杂度藏起来了。</td></tr></table></section>
+<section id="compare"><h2>3. 与其他方法对比</h2><table class="table"><tr><th>维度</th><th>结论</th></tr><tr><td>主流方案</td><td>通常在精度、延迟、成本、可解释性或部署资源之间拉扯，很难全都要。</td></tr><tr><td>本文方法</td><td>{html_escape(display_take or '本文更像是在部署约束下重新平衡性能、成本和可落地性。')}</td></tr><tr><td>创新点</td><td>{html_escape(method_pts[0] if method_pts else display_take or '需要结合正文继续细看。')}</td></tr><tr><td>适用场景</td><td>{html_escape(focus)}</td></tr><tr><td>风险</td><td>重点检查 baseline 是否够强、指标是否完整、硬件/部署收益是否真的可落地。</td></tr></table></section>
 <section id="exp"><h2>4. 实验表现与优势</h2>{exp_block}<p>- 快速检查清单：有没有和强 baseline 比；有没有端到端指标；有没有成本/延迟/吞吐一起报；有没有极端 case。</p><p class="muted">别被摘要吹晕，这是系统论文，不是许愿池。</p></section>
 <section id="apply"><h2>5. 学习与应用</h2><p>- 如果你要拿来做研究借鉴，先抓它的方法切分方式，不要先学包装词。</p><p>- 真正该抄的是：瓶颈建模、模块边界、关键优化点、实验对照设计。</p><p>- 如果后面接上 PDF 自动解析，这里可以继续补：开源状态、复现路径、关键超参/实现细节、可迁移任务。</p></section>
-<section id="summary"><h2>6. 总结</h2><p style="font-size:22px;font-weight:800">{html_escape((one or '摘要可看，但正文定生死。')[:20])}</p><p>速记版：</p><p>{'<br>'.join(html_escape(x) for x in flow_plain)}</p><p class="muted">下一步建议：先看 PDF 的方法图、系统架构图、实验表 1 和 ablation，再决定值不值得深挖。</p></section>
-<section id="flow"><h2>7. 方法流程图</h2><h3>Plain-text numbered flow</h3><pre>{html_escape(chr(10).join(flow_plain))}</pre><h3>Draw.io draft nodes/edges</h3><pre>Nodes:\n{html_escape(chr(10).join('- ' + x for x in flow_nodes))}\n\nEdges:\n{html_escape(chr(10).join('- ' + x for x in flow_edges))}</pre><h3>Mermaid</h3><pre>flowchart TD\n  N1[输入请求/数据/workload] --> N2[预处理与任务切分]\n  N2 --> N3[核心方法模块]\n  N3 --> N4[资源调度/存储/执行路径优化]\n  N4 --> N5[输出结果与性能评估]</pre></section></main><aside class="aside"><h3>关键信息卡</h3><div class="kpi"><b>作者</b><div class="muted">{html_escape(authors)}</div></div><div class="kpi"><b>打分 / 层级</b><div class="muted">{html_escape(str(item.get('score','')))} / {html_escape(item.get('tier',''))}</div></div><div class="kpi"><b>命中理由</b><div class="muted">{html_escape(reasons)}</div></div><div class="kpi"><b>一句话判断</b><div class="muted">{html_escape(one)}</div></div>{f'<div class="kpi"><b>摘要页</b><div><a href="{html_escape(link)}" target="_blank">打开摘要页</a></div></div>' if link else ''}{f'<div class="kpi"><b>PDF</b><div><a href="{html_escape(pdf_link)}" target="_blank">打开 PDF</a></div></div>' if pdf_link else ''}</aside></div></div></body></html>'''
+<section id="summary"><h2>6. 总结</h2><p style="font-size:22px;font-weight:800">{html_escape((display_take or '正文已抓到，继续看方法细节。')[:20])}</p><p>速记版：</p><p>{'<br>'.join(html_escape(x) for x in flow_plain)}</p><p class="muted">下一步建议：先看 PDF 的方法图、系统架构图、实验表 1 和 ablation，再决定值不值得深挖。</p></section>
+<section id="flow"><h2>7. 方法流程图</h2><h3>Plain-text numbered flow</h3><pre>{html_escape(chr(10).join(flow_plain))}</pre><h3>Draw.io draft nodes/edges</h3><pre>Nodes:\n{html_escape(chr(10).join('- ' + x for x in flow_nodes))}\n\nEdges:\n{html_escape(chr(10).join('- ' + x for x in flow_edges))}</pre><h3>Mermaid</h3><pre>flowchart TD\n  N1[输入请求/数据/workload] --> N2[预处理与任务切分]\n  N2 --> N3[核心方法模块]\n  N3 --> N4[资源调度/存储/执行路径优化]\n  N4 --> N5[输出结果与性能评估]</pre></section></main><aside class="aside"><h3>关键信息卡</h3><div class="kpi"><b>作者</b><div class="muted">{html_escape(authors)}</div></div><div class="kpi"><b>打分 / 层级</b><div class="muted">{html_escape(str(item.get('score','')))} / {html_escape(item.get('tier',''))}</div></div><div class="kpi"><b>命中理由</b><div class="muted">{html_escape(reasons)}</div></div><div class="kpi"><b>一句话判断</b><div class="muted">{html_escape(display_take)}</div></div>{f'<div class="kpi"><b>摘要页</b><div><a href="{html_escape(link)}" target="_blank">打开摘要页</a></div></div>' if link else ''}{f'<div class="kpi"><b>PDF</b><div><a href="{html_escape(pdf_link)}" target="_blank">打开 PDF</a></div></div>' if pdf_link else ''}</aside></div></div></body></html>'''
 
 
 
