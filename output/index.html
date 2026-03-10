@@ -11,6 +11,7 @@
 .grid{display:grid;grid-template-columns:1.4fr .6fr;gap:18px}.panel{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:18px}.card{background:var(--panel);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:14px;margin-bottom:12px}
 .score,.tier{display:inline-block;padding:4px 10px;border-radius:999px;font-weight:700;font-size:12px}.score{background:rgba(124,156,255,.14);color:#c8d6ff}.tier.must{background:rgba(91,214,161,.14);color:#9ff1ca}.tier.scan{background:rgba(255,209,102,.14);color:#ffe7a6}.tier.skip{background:rgba(255,140,140,.14);color:#ffc0c0}.tier.classic{background:rgba(160,120,255,.16);color:#d9c7ff}.tier.white{background:rgba(120,210,255,.16);color:#bfefff}
 .tag{display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(91,214,161,.12);color:#9ff1ca;font-size:12px;margin-right:6px;margin-top:6px}.muted{color:var(--muted)} a{color:#c8d6ff;text-decoration:none}.bar{height:10px;background:var(--soft);border-radius:999px;overflow:hidden}.bar>span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#9c7cff)} .cta{display:inline-block;margin-top:8px;padding:8px 12px;border-radius:12px;background:rgba(124,156,255,.15);border:1px solid rgba(124,156,255,.25);margin-right:8px}
+.cta.busy{opacity:.7;pointer-events:none}.status{position:fixed;right:20px;bottom:20px;max-width:360px;z-index:9999;background:rgba(18,26,48,.95);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:14px 16px;box-shadow:0 12px 36px rgba(0,0,0,.35);display:none}.status.show{display:block}.status.good{border-color:rgba(91,214,161,.45)}.status.bad{border-color:rgba(255,140,140,.45)}.status.warn{border-color:rgba(255,209,102,.45)}.status .title{font-size:15px}.status .body{color:var(--muted);margin-top:6px;line-height:1.5}
 @media (max-width: 920px){.grid{grid-template-columns:1fr}.hero{flex-direction:column;align-items:start}}
 </style>
 </head>
@@ -28,32 +29,41 @@
     <section class="panel"><h2 style="margin-top:0">概览</h2><div class="stats" id="tiers"></div><div style="margin-top:16px" id="venues"></div><div style="margin-top:16px"><h3>历史归档</h3><div id="archive"></div><a class="cta" href="./archive/index.html" target="_blank">打开归档中心</a></div></section>
   </div>
 </div>
+<div id="statusBox" class="status"><div id="statusTitle" class="title"></div><div id="statusBody" class="body"></div></div>
 <script>
 let DATA=null, currentTab='top', currentSub='all', currentDate='today', ARCH=[];
 const topTabs=[['top','顶会'],['must','必看'],['sweep','可扫'],['canon','经典白名单'],['sample','精读样板'],['history','历史归档']];
 const venueSubs=['all','FAST-style','HPCA-style','OSDI/ATC/EuroSys-style','DAC/ICCAD-style'];
 function tierClass(t){if(t==='必看')return 'must'; if(t==='可扫')return 'scan'; if(t==='先别看')return 'skip'; if(t==='白名单')return 'white'; return 'classic'}
+function showStatus(kind,title,body,sticky=false){const box=document.getElementById('statusBox'); document.getElementById('statusTitle').textContent=title; document.getElementById('statusBody').textContent=body||''; box.className=`status show ${kind||''}`; if(!sticky){ clearTimeout(showStatus._t); showStatus._t=setTimeout(()=>box.className='status',2600); }}
 function renderCard(p){
   const encoded = encodeURIComponent(JSON.stringify(p));
-  return `<article class="card"><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px"><span class="score">${p.score||''}</span><span class="tier ${tierClass(p.tier||'经典')}">${p.tier||'经典'}</span></div><h3>${p.title}</h3><div class="muted">${(p.authors||[]).join(', ')}</div><div>${(p.venue_tags||[]).map(t=>`<span class="tag">${t}</span>`).join('')}</div><p>${p.one_liner||''}</p><p class="muted">${p.why||''}</p>${p.link?`<a class="cta" href="${p.link}" target="_blank">摘要页</a>`:''}${p.pdf_link?`<a class="cta" href="${p.pdf_link}" target="_blank">PDF</a>`:''}<a class="cta" href="#" onclick="return triggerDeepRead('${encoded}')">实时精读</a>${p.analysis_path?`<a class="cta" href="${p.analysis_path}" target="_blank">预生成页</a>`:''}</article>`
+  return `<article class="card"><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px"><span class="score">${p.score||''}</span><span class="tier ${tierClass(p.tier||'经典')}">${p.tier||'经典'}</span></div><h3>${p.title}</h3><div class="muted">${(p.authors||[]).join(', ')}</div><div>${(p.venue_tags||[]).map(t=>`<span class="tag">${t}</span>`).join('')}</div><p>${p.one_liner||''}</p><p class="muted">${p.why||''}</p>${p.link?`<a class="cta" href="${p.link}" target="_blank">摘要页</a>`:''}${p.pdf_link?`<a class="cta" href="${p.pdf_link}" target="_blank">PDF</a>`:''}<a class="cta" href="#" onclick="return triggerDeepRead(this, '${encoded}')">实时精读</a>${p.analysis_path?`<a class="cta" href="${p.analysis_path}" target="_blank">预生成页</a>`:''}</article>`
 }
 function setTabs(){document.getElementById('tabs').innerHTML=topTabs.map(([k,v])=>`<div class="tab ${currentTab===k?'active':''}" onclick="switchTab('${k}')">${v}</div>`).join(''); document.getElementById('subtabs').innerHTML=((currentTab==='top'||currentTab==='canon')?venueSubs.map(v=>`<div class="subtab ${currentSub===v?'active':''}" onclick="switchSub('${v}')">${v==='all'?'全部':v}</div>`).join(''):''); document.getElementById('datebar').innerHTML=[['today','今天'],['yesterday','昨天'],['7d','最近7天']].map(([k,v])=>`<div class="datepill ${currentDate===k?'active':''}" onclick="switchDate('${k}')">${v}</div>`).join('');}
 function switchTab(t){currentTab=t; currentSub='all'; render()} function switchSub(s){currentSub=s; render()} function switchDate(d){currentDate=d; render()}
-async function triggerDeepRead(encoded){
+async function triggerDeepRead(btn, encoded){
   let paper=null;
-  try{ paper=JSON.parse(decodeURIComponent(encoded)); }catch(e){ alert('参数坏了'); return false; }
+  try{ paper=JSON.parse(decodeURIComponent(encoded)); }catch(e){ showStatus('bad','参数坏了','这篇 paper 的前端参数解码失败。',true); return false; }
+  const oldText = btn.textContent;
+  btn.textContent='生成中...';
+  btn.classList.add('busy');
+  showStatus('warn','正在实时精读',`正在抓取 PDF 并总结：${paper.title}`,true);
   try{
     const r=await fetch('/api/deep-read',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(paper)});
     const data=await r.json();
     if(!r.ok || !data.ok) throw new Error(data.error||'生成失败');
+    showStatus('good','实时精读完成',`已生成 ${data.mode||'pdf'} 模式精读页，马上给你打开。`);
     window.open(data.path,'_blank');
   }catch(e){
-    if(paper.analysis_path){
-      alert('本地实时服务没起，先给你开预生成页。想用实时精读，请在终端运行: python3 scripts/serve_local.py');
+    const msg = `实时精读失败：${e.message}`;
+    showStatus('bad','实时精读失败',msg + '。这次不是静默退回。',true);
+    if(paper.analysis_path && confirm(msg + '\n\n要不要改看预生成页？')){
       window.open(paper.analysis_path,'_blank');
-    }else{
-      alert('实时精读失败：'+e.message);
     }
+  } finally {
+    btn.textContent=oldText;
+    btn.classList.remove('busy');
   }
   return false;
 }

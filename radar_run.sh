@@ -30,4 +30,5 @@ fi
 
 echo "[4/4] 启动本地实时精读服务"
 echo "打开浏览器： http://$HOST:$PORT"
+echo "点实时精读时，现在会先显示生成中；失败会明确报错，不再偷偷退回。"
 exec env PORT="$PORT" HOST="$HOST" python3 scripts/serve_local.py
