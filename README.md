@@ -121,6 +121,12 @@ python3 -m http.server 8765
 Or start the local realtime deep-read server:
 
 ```bash
+bash radar_run.sh
+```
+
+等价手动命令：
+
+```bash
 python3 scripts/serve_local.py
 ```
 

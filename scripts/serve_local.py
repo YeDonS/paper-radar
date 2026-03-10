@@ -72,8 +72,9 @@ class Handler(SimpleHTTPRequestHandler):
 
 
 def main():
-    host = '127.0.0.1'
-    port = 8765
+    import os
+    host = os.environ.get('HOST', '127.0.0.1')
+    port = int(os.environ.get('PORT', '8765'))
     server = ThreadingHTTPServer((host, port), Handler)
     print(f'serving {OUT} at http://{host}:{port}')
     server.serve_forever()
